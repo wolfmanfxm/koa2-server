@@ -1,0 +1,11 @@
+[2022-05-26T00:44:58.282] [ERROR] error - server error
+[2022-05-26T00:48:08.319] [ERROR] error - ReferenceError: abc is not defined
+    at /Users/fangxiangming/Study/testSpace/koa2-server/app.js:39:15
+    at dispatch (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-compose/index.js:42:32)
+    at /Users/fangxiangming/Study/testSpace/koa2-server/app.js:31:9
+    at dispatch (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-compose/index.js:42:32)
+    at views (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-views/src/index.js:91:12)
+    at dispatch (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-compose/index.js:42:32)
+    at serve (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-static/index.js:53:15)
+    at async logger (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-logger/index.js:67:7)
+    at async bodyParser (/Users/fangxiangming/Study/testSpace/koa2-server/node_modules/koa-bodyparser/index.js:95:5)
