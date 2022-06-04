@@ -1,11 +1,6 @@
 [2022-05-26T00:41:13.065] [INFO] info - info logs output
 [2022-05-26T00:48:54.002] [INFO] info - info logs output
-[2022-06-04T10:26:07.982] [INFO] info - ***数据库连接成功***
-[2022-06-04T10:26:33.908] [INFO] info - params:{}
-[2022-06-04T10:26:49.785] [INFO] info - params:{}
-[2022-06-04T10:31:15.740] [INFO] info - ***数据库连接成功***
-[2022-06-04T10:31:26.584] [INFO] info - ***数据库连接成功***
-[2022-06-04T10:31:36.425] [INFO] info - params:{}
-[2022-06-04T10:31:40.423] [INFO] info - params:{}
-[2022-06-04T10:32:24.298] [INFO] info - params:{}
-[2022-06-04T10:32:30.464] [INFO] info - params:{}
+[2022-06-04T10:36:46.332] [INFO] info - ***数据库连接成功***
+[2022-06-04T10:36:48.818] [INFO] info - params:{"userName":"dd","userPwd":"dd"}
+[2022-06-04T10:37:02.547] [INFO] info - params:{"userName":"admin","userPwd":"admin"}
+[2022-06-04T10:37:30.879] [INFO] info - ***数据库连接成功***

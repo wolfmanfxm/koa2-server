@@ -30,7 +30,7 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
-  if (ctx.method == 'post')
+  if (ctx.method == 'POST')
     log4js.info(`params:${JSON.stringify(ctx.request.body)}`)
   else
     log4js.info(`params:${JSON.stringify(ctx.request.query)}`)
