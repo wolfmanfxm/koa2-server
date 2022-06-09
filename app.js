@@ -10,6 +10,9 @@ const log4js = require('./utils/logs4js')
 const router = require('koa-router')()
 const users = require('./routes/users')
 
+const koajwt = require('koa-jwt')
+const util = require('./utils/util')
+
 // error handler
 onerror(app)
 
@@ -35,16 +38,18 @@ app.use(async (ctx, next) => {
   else
     log4js.info(`params:${JSON.stringify(ctx.request.query)}`)
 
-  // const start = new Date()
-  await next()
-  // const ms = new Date() - start
-  // console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  await next().catch(err => {
+    if (err.status == 401) {  // koajwt 拦截解密认证失败时，会报 401
+      ctx.status = 200;
+      ctx.body = util.fail('', 'Token认证失败', util.CODE.AUTH_ERROR)
+    } else {
+      throw err
+    }
+  })
 })
 
-// 未定义abc，触发 error 监听
-// app.use(() => {
-//   console.log(abc)
-// })
+// 若放在上方 logger 前面，会先验证，失败后不会继续往后走，logger 中的代码不执行
+app.use(koajwt({ secret: 'secret' }))
 
 router.prefix('/api')
 
