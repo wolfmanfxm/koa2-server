@@ -49,7 +49,9 @@ app.use(async (ctx, next) => {
 })
 
 // 若放在上方 logger 前面，会先验证，失败后不会继续往后走，logger 中的代码不执行
-app.use(koajwt({ secret: 'secret' }))
+app.use(koajwt({ secret: 'secret' }).unless({
+  path: [/^\/api\/users\/login/]
+}))
 
 router.prefix('/api')
 
