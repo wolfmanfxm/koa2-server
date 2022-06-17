@@ -41,7 +41,7 @@ app.use(async (ctx, next) => {
   await next().catch(err => {
     if (err.status == 401) {  // koajwt 拦截解密认证失败时，会报 401
       ctx.status = 200;
-      ctx.body = util.fail('', 'Token认证失败', util.CODE.AUTH_ERROR)
+      ctx.body = util.fail('Token认证失败', util.CODE.AUTH_ERROR)
     } else {
       throw err
     }

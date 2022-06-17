@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     "userName": String,
     "userPwd": String,
     "userEmail": String,
-    "moblie": String,
+    "mobile": String,
     "sex": Number,  // 0-男，1-女
     "deptId": [],   // 部门
     "job": String,  // 岗位
@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
     remark: String
 })
 
-module.exports = mongoose.model('users', userSchema, 'users')
+module.exports = mongoose.model('user', userSchema, 'users')
 
 
 
