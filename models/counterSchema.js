@@ -10,4 +10,3 @@ const counterSchema = mongoose.Schema({
 })
 
 module.exports = mongoose.model('counter', counterSchema)
-
