@@ -63,10 +63,7 @@ router.post('/operate', async (ctx) => {
     } catch (err) {
         ctx.body = util.fail(`操作失败${err.stack}`)
     }
-
 })
-
-
 
 
 module.exports = router
