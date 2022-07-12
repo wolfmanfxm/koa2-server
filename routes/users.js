@@ -16,8 +16,8 @@ router.post('/login', async (ctx, next) => {
     const { userName, userPwd } = ctx.request.body;
     const query = await User.findOne({
       userName,
-      userPwd
-    }, 'userId userName')    // 设置查询后只返回 userId 和 userName 字段
+      userPwd: md5(userPwd)
+    }, 'userId userName userEmail role roleList')    // 设置查询后只返回 userId 和 userName 字段
     const res = query._doc
 
     const token = jwt.sign({

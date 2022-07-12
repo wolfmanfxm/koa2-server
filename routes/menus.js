@@ -1,6 +1,8 @@
 const router = require('koa-router')()
 const Menu = require('./../models/menuSchema')
+const Role = require('./../models/roleSchema')
 const util = require('./../utils/util')
+const jwt = require('jsonwebtoken')
 const log4js = require('./../utils/logs4js')
 
 router.prefix('/menu')
@@ -62,6 +64,40 @@ router.post('/operate', async (ctx) => {
         ctx.body = util.success(res, info)
     } catch (err) {
         ctx.body = util.fail(`操作失败${err.stack}`)
+    }
+})
+
+router.get('/accessList', async (ctx) => {
+    let authorization = ctx.request.headers.authorization;
+    if (authorization) {
+        let token = authorization.split(' ')[1];
+        let { data } = jwt.verify(token, 'secret')             // 解密 key 与 登陆 sign 加密时相同
+
+        if (data.role == 0) {
+            const res = await Menu.find({})
+            const treeList = getTreeMenu(res, null, [])
+            log4js.info(JSON.stringify(treeList))
+
+            ctx.body = util.success(treeList, '权限列表查询成功')
+        } else {
+            const roles = await Role.find({ _id: { $in: data.roleList } })
+            let actionList = [];
+            // 所有角色功能合并
+            roles.map(role => {
+                actionList = actionList.concat([...role.accessAction, ...role.halfAction])
+            })
+            // 去重
+            actionList = [...new Set(actionList)]
+            const res = await Menu.find({ _id: { $in: actionList } })
+
+            const treeList = getTreeMenu(res, null, [])
+            log4js.info(JSON.stringify(treeList))
+
+            ctx.body = util.success(treeList, '权限列表查询成功')
+        }
+
+    } else {
+        ctx.body = util.fail('Token无效', util.CODE.AUTH_ERROR)
     }
 })
 
