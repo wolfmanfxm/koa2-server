@@ -73,12 +73,9 @@ router.get('/accessList', async (ctx) => {
         let token = authorization.split(' ')[1];
         let { data } = jwt.verify(token, 'secret')             // 解密 key 与 登陆 sign 加密时相同
 
+        let res = null, treeList = [];
         if (data.role == 0) {
-            const res = await Menu.find({})
-            const treeList = getTreeMenu(res, null, [])
-            log4js.info(JSON.stringify(treeList))
-
-            ctx.body = util.success(treeList, '权限列表查询成功')
+            res = await Menu.find({})
         } else {
             const roles = await Role.find({ _id: { $in: data.roleList } })
             let actionList = [];
@@ -88,14 +85,12 @@ router.get('/accessList', async (ctx) => {
             })
             // 去重
             actionList = [...new Set(actionList)]
-            const res = await Menu.find({ _id: { $in: actionList } })
-
-            const treeList = getTreeMenu(res, null, [])
-            log4js.info(JSON.stringify(treeList))
-
-            ctx.body = util.success(treeList, '权限列表查询成功')
+            res = await Menu.find({ _id: { $in: actionList } })
         }
+        treeList = getTreeMenu(res, null, [])
+        log4js.info(JSON.stringify(treeList))
 
+        ctx.body = util.success(treeList, '权限列表查询成功')
     } else {
         ctx.body = util.fail('Token无效', util.CODE.AUTH_ERROR)
     }
